@@ -1,0 +1,57 @@
+body{
+    position: relative;
+}
+
+
+.navbar-item-custom, .navbar-item-custom a {
+    color: white;
+}
+
+.footer-custom {
+
+    text-align: center;
+    position: absolute;
+    bottom: auto;
+    width: 100%;
+    background-color: #dfeaff;
+    padding-top: 20px;
+}
+
+.figure-item h4{
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.figure-item{
+    font-size: 15px;
+
+}
+
+.figure-container{
+    margin-bottom: 150px;
+}
+
+.metaDate {
+    font-size: small;
+    font-family: "Lucida Console", monospace, sans-serif;
+    color: #0a0a0a;
+}
+
+ul{
+    display: flex;
+    position: absolute;
+    right: 10%;
+}
+
+.navbar-item-custom{
+    display: flex;
+    position: absolute;
+    right: 1%;
+}
+
+.navbar-nav{
+    display: flex;
+    position: absolute;
+    right: 15%;
+}

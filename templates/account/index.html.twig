@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - SnowTrick{% endblock %}
+
+{% block content %}
+    <h1>Mon compte</h1>
+
+    <br>Bienvenue {{ app.user.firstname}} dans votre compte.
+
+    <br>c'est dans cet espace vous allez pouvoir gérer toutes vos informations personnelles.
+    <hr>
+
+
+    - <a href="{{ path('account_password') }}"> Modfier mon mot de passe </a> <br>
+
+
+
+
+
+{% endblock %}
