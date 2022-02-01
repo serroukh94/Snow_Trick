@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification - SnowTrick{% endblock %}
+
+{% block monTitre %}
+    {% if isModification %}
+         Modification {{ figure.title }}
+    {% else %}
+         Ajout d'une figure
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-6">
+            {% if isModification %}
+            <img src="{{ asset( figure.image) }}" style="width: 180%">
+            {% endif %}
+            <div>{{ form_row(form.image) }}</div>
+        </div>
+    </div>
+
+    <div>{{ form_row(form.title, {"attr" : {'class': 'text-danger'}, "label" : "Nom de la figure"}) }}</div>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary" value="Enregistrer">
+
+    {{ form_end(form) }}
+
+{% endblock %}

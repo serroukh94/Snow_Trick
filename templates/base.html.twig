@@ -7,6 +7,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
     <title>{% block title %}snowTrick{% endblock %}</title>
+    <h1>{% block monTitre %}  {% endblock %}</h1>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -41,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="">Figures</a>
+                    <a class="nav-link" href="{{ path('figures') }}">Figures</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Création de Figure</a>
@@ -122,6 +123,9 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing {% if block('carousel') is not defined  %}mt-5{% endif %}">
+
+
+
 
         {% block content %}
 

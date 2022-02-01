@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {% endblock %}
+
+{% block carousel %} {% endblock %}
+
+{% block content %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <h2>Découvrer nos figures</h2>
+    <hr>
+
+
+    <div class="row">
+        {% for figure in figures %}
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem">
+                    <div class="card-header text-center">
+                        <img src="{{ asset(figure.image)  }}" class="perso_imgAliment card-img-top">
+
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ figure.title }}</h3>
+                        <p class="card-text">
+                        <h4 class="text-center">{{ figure.description }}</h4>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

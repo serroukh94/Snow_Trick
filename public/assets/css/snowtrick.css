@@ -55,3 +55,15 @@ ul{
     position: absolute;
     right: 15%;
 }
+
+.perso_imgAliment{
+    width: 150px;
+    height: 130px;
+    object-fit: cover;
+}
+
+.perso_imgFigure{
+    width: 70px;
+    height: 60px;
+    object-fit: cover;
+}
