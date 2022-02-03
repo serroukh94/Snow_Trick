@@ -33,7 +33,7 @@ class FigureController extends AbstractController
 
 
     #[Route('/figure/creation', name: 'figure_creation')]
-    #[Route('/figure/{id}', name: 'figure_modification')]
+    #[Route('/figure/{id}', name: 'figure_modification', methods: 'GET|POST')]
 
     public function ajoutEtModif(Figure $figure = null, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -45,8 +45,10 @@ class FigureController extends AbstractController
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            $modif = $figure->getId() !== null;
             $entityManager->persist($figure);
             $entityManager->flush();
+            $this->addFlash('success', ($modif) ? 'la modification a été effectuée' : 'L\'ajout a été effectuée'); //  j'ai mis en place la Ternaire pour un true ou false pour bien affiché le flash correspondant de l'ajout ou bien modif
             return $this->redirectToRoute('figures');
         }
 
@@ -55,6 +57,20 @@ class FigureController extends AbstractController
             "form"  =>$form->createView(),
             "isModification" => $figure->getId() !== null
         ]);
+    }
+
+
+    #[Route('/figure/{id}', name: 'figure_suppression', methods: 'delete')]
+
+    public function suppression(Figure $figure, Request $request, EntityManagerInterface $entityManager)
+    {
+        if ($this->isCsrfTokenValid('SUP'. $figure->getId(), $request->get('_token'))){
+            $entityManager->remove($figure);
+            $entityManager->flush();
+            $this->addFlash('success', 'la suppression a été effectuée');
+            return $this->redirectToRoute('figures');
+        }
+
     }
 
 }

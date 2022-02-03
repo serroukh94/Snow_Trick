@@ -2,16 +2,24 @@
 
 {% block title %}Nos Figures - SnowTrick{% endblock %}
 
-
+{% block monTitre %} Nos figures {% endblock %}
 
 {% block content %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-sucess">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
 
     <div class="row">
         {% for figure in figures %}
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem">
                 <div class="card-header text-center">
-                    <img src="{{ asset( figure.image )  }}" class="perso_imgAliment card-img-top">
+                    <img src="{{ asset('assets/uploads/' ~ figure.image)}}" class="perso_imgAliment card-img-top">
                 </div>
                 <div class="card-body">
                     <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ figure.title }}</h3>
@@ -35,13 +43,17 @@
         </tr>
         {% for figure in figures %}
             <tr>
-                <td><img src="{{ asset(figure.image) }}" class="perso_imgFigure"></td>
+                <td><img src="{{ asset('assets/uploads/' ~ figure.image)}}" class="perso_imgFigure"></td>
                 <td><strong>{{ figure.title }}</strong></td>
                 <td>{{ figure.slug }}</td>
                 <td>{{ figure.description }}</td>
                 <td>
                     <a class="btn btn-secondary" href="{{ path('figure_modification', {'id' : figure.id}) }}">Modifier</a>
-                    <a class="btn btn-danger" href="">Supprimer</a>
+                    <form method="post" style="display:inline-block" action="{{ path('figure_suppression', {'id' : figure.id}) }}" onsubmit="return confirm('Confirmer la suppression ?')">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ figure.id) }}">
+                        <input type="submit" class="btn btn-danger" value="supprimer" >
+                    </form>
                 </td>
             </tr>
         {% endfor %}

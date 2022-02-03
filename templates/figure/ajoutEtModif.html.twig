@@ -4,7 +4,7 @@
 
 {% block monTitre %}
     {% if isModification %}
-         Modification {{ figure.title }}
+         Modification de la figure {{ figure.title }}
     {% else %}
          Ajout d'une figure
     {% endif %}
@@ -15,9 +15,9 @@
     <div class="row">
         <div class="col-6">
             {% if isModification %}
-            <img src="{{ asset( figure.image) }}" style="width: 180%">
+            <img src="{{ asset('assets/uploads/' ~ figure.image) }}" style="width: 180%">
             {% endif %}
-            <div>{{ form_row(form.image) }}</div>
+            <div>{{ form_row(form.imageFile) }}</div>
         </div>
     </div>
 
