@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Figure;
+use App\Entity\Figures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        $f1 =new Figure();
+        $f1 =new Figures();
         $f1->setTitle("alpe")
             ->setSlug("alpe")
             ->setDescription("lorem")
@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
         $manager->persist($f1);
 
 
-        $f2 =new Figure();
+        $f2 =new Figures();
         $f2->setTitle("mountain")
             ->setSlug("mountain")
             ->setDescription("lorem")

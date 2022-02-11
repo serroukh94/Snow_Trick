@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\FigureRepository;
+use App\Repository\FiguresRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
-#[ORM\Entity(repositoryClass: FigureRepository::class)]
-#[Vich\Uploadable]
 
-class Figure
+
+#[ORM\Entity(repositoryClass: FiguresRepository::class)]
+
+
+class Figures
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,8 +29,6 @@ class Figure
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $created_at;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'figures')]
     private $category;
@@ -39,12 +37,9 @@ class Figure
     #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Comment::class)]
     private $comments;
 
+    #[ORM\OneToMany(mappedBy: 'figures', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
+    private $images;
 
-    #[Vich\UploadableField(mapping: 'figure_image', fileNameProperty: 'image')]
-    private ?File $imageFile = null;
-
-    #[ORM\Column(type: 'string')]
-    private ?string $image = null;
 
 
 
@@ -55,34 +50,8 @@ class Figure
     {
 
         $this->comments = new ArrayCollection();
-    }
+        $this->images = new ArrayCollection();
 
-
-
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-
-        //if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-         //  $this->updatedAt = new \DateTimeImmutable();
-       // }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImage(?string $image) : void
-    {
-        $this->image = $image;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
     }
 
 
@@ -128,17 +97,6 @@ class Figure
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
 
     public function getCategory(): ?Category
     {
@@ -184,6 +142,37 @@ class Figure
         return $this;
     }
 
+
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setFigures($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getFigures() === $this) {
+                $image->setFigures(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 }

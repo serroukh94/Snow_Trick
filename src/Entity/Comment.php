@@ -22,7 +22,7 @@ class Comment
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $created_at;
 
-    #[ORM\ManyToOne(targetEntity: Figure::class, inversedBy: 'comments')]
+    #[ORM\ManyToOne(targetEntity: Figures::class, inversedBy: 'comments')]
     private $figure;
 
     public function getId(): ?int
@@ -66,12 +66,12 @@ class Comment
         return $this;
     }
 
-    public function getFigure(): ?Figure
+    public function getFigure(): ?Figures
     {
         return $this->figure;
     }
 
-    public function setFigure(?Figure $figure): self
+    public function setFigure(?Figures $figure): self
     {
         $this->figure = $figure;
 

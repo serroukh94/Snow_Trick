@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Figures{% endblock %}
+
+{% block content %}
+    <h1>Figures</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ figure.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{% for image in figure.images %}
+                        <div>
+                            <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="150">
+                        </div>
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ figure.title }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ figure.slug }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ figure.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('figures_index') }}">back to list</a>
+
+    <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
+
+    {{ include('figures/_delete_form.html.twig') }}
+{% endblock %}

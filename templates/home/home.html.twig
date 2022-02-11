@@ -17,10 +17,12 @@
         {% for figure in figures %}
             <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                 <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem">
+                    {% for image in figure.images %}
                     <div class="card-header text-center">
-                        <img src="{{ asset('assets/uploads/' ~ figure.image)}}" class="perso_imgAliment card-img-top">
+                        <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="220">
 
                     </div>
+                    {% endfor %}
                     <div class="card-body">
                         <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ figure.title }}</h3>
                         <p class="card-text">

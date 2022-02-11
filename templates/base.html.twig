@@ -42,10 +42,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('figures') }}">Figures</a>
+                    <a class="nav-link" href="{{ path('figures_index') }}">Figures</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Création de Figure</a>
+                    <a class="nav-link" href="{{ path('figures_new') }}">Création de Figure</a>
                 </li>
 
                 <li class="nav-item">
@@ -144,5 +144,9 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWlvI9IOYy5n3V9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+{% block javascripts %} {% endblock %}
+
 </body>
 </html>

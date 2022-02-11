@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Figures index{% endblock %}
+
+{% block content %}
+    <h1>Figures index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for figure in figures %}
+            <tr>
+                <td>{{ figure.id }}</td>
+
+                <td>
+                    {% for image in figure.images %}
+                        <div>
+                            <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="150">
+                        </div>
+                    {% endfor %}
+                </td>
+
+                <td>{{ figure.title }}</td>
+                <td>{{ figure.slug }}</td>
+                <td>{{ figure.description }}</td>
+                <td>
+                    <a href="{{ path('figures_show', {'id': figure.id}) }}">show</a>
+                    <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('figures_new') }}">Create new</a>
+{% endblock %}

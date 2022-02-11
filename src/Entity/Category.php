@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Figure::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Figures::class)]
     private $figures;
 
     public function __construct()
@@ -44,14 +44,14 @@ class Category
     }
 
     /**
-     * @return Collection|Figure[]
+     * @return Collection|Figures[]
      */
     public function getFigures(): Collection
     {
         return $this->figures;
     }
 
-    public function addFigure(Figure $figure): self
+    public function addFigure(Figures $figure): self
     {
         if (!$this->figures->contains($figure)) {
             $this->figures[] = $figure;
@@ -61,7 +61,7 @@ class Category
         return $this;
     }
 
-    public function removeFigure(Figure $figure): self
+    public function removeFigure(Figures $figure): self
     {
         if ($this->figures->removeElement($figure)) {
             // set the owning side to null (unless already changed)
