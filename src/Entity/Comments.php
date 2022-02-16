@@ -6,15 +6,13 @@ use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class Comments
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $author;
 
     #[ORM\Column(type: 'text')]
     private $content;
@@ -25,22 +23,15 @@ class Comment
     #[ORM\ManyToOne(targetEntity: Figures::class, inversedBy: 'comments')]
     private $figure;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    private $user;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -74,6 +65,18 @@ class Comment
     public function setFigure(?Figures $figure): self
     {
         $this->figure = $figure;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

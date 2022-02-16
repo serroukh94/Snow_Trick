@@ -34,14 +34,14 @@ class Figures
     private $category;
 
 
-    #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Comments::class)]
     private $comments;
 
     #[ORM\OneToMany(mappedBy: 'figures', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
     private $images;
 
-
-
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'figures')]
+    private $user;
 
 
 
@@ -113,14 +113,14 @@ class Figures
 
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection|Comments[]
      */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
+    public function addComment(Comments $comment): self
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
@@ -130,7 +130,7 @@ class Figures
         return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    public function removeComment(Comments $comment): self
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
@@ -170,6 +170,18 @@ class Figures
                 $image->setFigures(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

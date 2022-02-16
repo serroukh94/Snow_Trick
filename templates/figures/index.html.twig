@@ -5,6 +5,10 @@
 {% block content %}
     <h1>Figures index</h1>
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
     <table class="table">
         <thead>
             <tr>

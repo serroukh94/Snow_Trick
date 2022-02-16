@@ -1,9 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Figures{% endblock %}
+{% block title %}{{ figure.title }} - SnowTrick{% endblock %}
 
 {% block content %}
-    <h1>Figures</h1>
+
+    <h1>Figure</h1>
+
+    <div class="row">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {% for image in figure.images %}
+            <div>
+                <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" class="img-fluid">
+            </div>
+        {% endfor %}
+
+    </div>
+    <hr>
+
+    <p>{{ figure.category }}</p>
+    <div class="row">
+
+        <h1>{{ figure.title }}</h1>
+
+
+
+        <p>{{ figure.description }}</p> <br/>
+
+
+
+
+
+    </div>
 
     <table class="table">
         <tbody>

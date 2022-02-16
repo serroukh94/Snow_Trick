@@ -57,6 +57,8 @@ class FiguresController extends AbstractController
             $entityManager->persist($figure);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La figure a bien été créé !');
+
             return $this->redirectToRoute('figures_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -66,6 +68,8 @@ class FiguresController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}', name: 'figures_show', methods: ['GET'])]
     public function show(Figures $figure): Response
     {
@@ -73,6 +77,8 @@ class FiguresController extends AbstractController
             'figure' => $figure,
         ]);
     }
+
+
 
     #[Route('/{id}/edit', name: 'figures_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Figures $figure, EntityManagerInterface $entityManager): Response
@@ -104,6 +110,8 @@ class FiguresController extends AbstractController
 
             $entityManager->flush();
 
+            $this->addFlash('success', 'La figure a bien été modifié !');
+
             return $this->redirectToRoute('figures_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -120,6 +128,8 @@ class FiguresController extends AbstractController
             $entityManager->remove($figure);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'La figure a bien été supprimé !');
 
         return $this->redirectToRoute('figures_index', [], Response::HTTP_SEE_OTHER);
     }
