@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h1>Figure</h1>
+
 
     <div class="row">
         {% for message in app.flashes('success') %}
@@ -16,57 +16,40 @@
                 <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" class="img-fluid">
             </div>
         {% endfor %}
-
     </div>
     <hr>
 
     <p>{{ figure.category }}</p>
-    <div class="row">
+
+    <div class="container">
 
         <h1>{{ figure.title }}</h1>
+    </div>
 
-
-
+        <div class="row">
         <p>{{ figure.description }}</p> <br/>
-
-
-
-
 
     </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ figure.id }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{% for image in figure.images %}
-                        <div>
-                            <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="150">
-                        </div>
-                    {% endfor %}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ figure.title }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ figure.slug }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ figure.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <hr>
 
-    <a href="{{ path('figures_index') }}">back to list</a>
+    <div class="container">
+        <p>
+            <a href="{{ path('figures_index') }}">back to list</a>
+           <p> <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
 
-    <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
+        </p>
 
-    {{ include('figures/_delete_form.html.twig') }}
+    </div>
+
+
+    <div class="row tchat-section">
+        {% include "comment/form.html.twig" %}
+        {% include "comment/comments.html.twig" %}
+    </div>
+
+
+
+
+
 {% endblock %}

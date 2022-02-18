@@ -1,0 +1,29 @@
+
+
+
+<section>
+    {% for com in figure.comments %}
+        <div class="container mb-2">
+            <div class="row justify-content-center">
+                <div class="card card-row shadow-light-lg">
+                    <div class="row gx-0">
+                        <!-- Body -->
+                        <div class="card-body">
+                            <blockquote class="mb-0 text-center">
+
+                                <p>
+                                    {{ com.content }}
+                                </p>
+
+                                <footer class="blockquote-footer">
+                                    <span class="h6 text-uppercase">Par {{ com.user.lastname }} {{ com.user.firstname }} le {{ com.createdAt | date('d/m/y')}} à {{ figure.createdAt |date('H:i') }} </span>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</section>

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Figures;
 use App\Entity\Images;
+use App\Form\CommentType;
 use App\Form\FiguresType;
 use App\Repository\FiguresRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,6 +56,7 @@ class FiguresController extends AbstractController
             }
 
 
+
             $entityManager->persist($figure);
             $entityManager->flush();
 
@@ -70,11 +73,28 @@ class FiguresController extends AbstractController
 
 
 
-    #[Route('/{id}', name: 'figures_show', methods: ['GET'])]
-    public function show(Figures $figure): Response
+    #[Route('/{id}', name: 'figures_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Figures $figure, EntityManagerInterface $entityManager): Response
     {
+        $comment = new Comments();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $comment->setUser($this->getUser());
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setFigure($figure);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Votre commentaire a été ajouté à la liste de discussion de cette figure.");
+        }
+
         return $this->render('figures/show.html.twig', [
             'figure' => $figure,
+            'form' => $form->createView(),
         ]);
     }
 

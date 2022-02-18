@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 
-
 #[ORM\Entity(repositoryClass: FiguresRepository::class)]
 
 
@@ -42,6 +41,10 @@ class Figures
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'figures')]
     private $user;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $created_at;
+
 
 
 
@@ -185,6 +188,20 @@ class Figures
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+
 
 
 }
