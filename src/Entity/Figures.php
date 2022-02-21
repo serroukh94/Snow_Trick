@@ -6,12 +6,11 @@ use App\Repository\FiguresRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 #[ORM\Entity(repositoryClass: FiguresRepository::class)]
-
-
+#[UniqueEntity(fields: ['title'], message: 'Ce titre existe deja.')]
 class Figures
 {
     #[ORM\Id]
@@ -19,7 +18,7 @@ class Figures
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -48,12 +47,12 @@ class Figures
 
 
 
-
     public function __construct()
     {
 
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
 
     }
 

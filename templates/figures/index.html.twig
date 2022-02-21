@@ -37,8 +37,8 @@
                 <td>{{ figure.slug }}</td>
                 <td>{{ figure.description }}</td>
                 <td>
-                    <a href="{{ path('figures_show', {'id': figure.id}) }}">show</a>
-                    <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
+                    <a href="{{ path('show', {'id': figure.id}) }}">show</a>
+                    <a href="{{ path('edit', {'id': figure.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -49,5 +49,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('figures_new') }}">Create new</a>
+    <a href="{{ path('new') }}">Create new</a>
 {% endblock %}

@@ -4,8 +4,6 @@
 
 {% block content %}
 
-
-
     <div class="row">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">{{ message }}</div>
@@ -26,7 +24,7 @@
         <h1>{{ figure.title }}</h1>
     </div>
 
-        <div class="row">
+    <div class="row">
         <p>{{ figure.description }}</p> <br/>
 
     </div>
@@ -36,16 +34,17 @@
     <div class="container">
         <p>
             <a href="{{ path('figures_index') }}">back to list</a>
-           <p> <a href="{{ path('figures_edit', {'id': figure.id}) }}">edit</a>
+        <p> <a href="{{ path('edit', {'id': figure.id}) }}">edit</a>
 
+            {{ include('figures/_delete_form.html.twig') }}
         </p>
 
     </div>
 
 
     <div class="row tchat-section">
-        {% include "comment/form.html.twig" %}
-        {% include "comment/comments.html.twig" %}
+        {% include "home/form.html.twig" %}
+        {% include "home/comments.html.twig" %}
     </div>
 
 
@@ -53,3 +52,5 @@
 
 
 {% endblock %}
+
+
