@@ -6,11 +6,10 @@ use App\Repository\FiguresRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 #[ORM\Entity(repositoryClass: FiguresRepository::class)]
-#[UniqueEntity(fields: ['title'], message: 'Ce titre existe deja.')]
 class Figures
 {
     #[ORM\Id]
@@ -18,11 +17,9 @@ class Figures
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $slug;
 
     #[ORM\Column(type: 'text')]
     private $description;
@@ -43,6 +40,9 @@ class Figures
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
 
 
@@ -75,17 +75,6 @@ class Figures
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -196,6 +185,18 @@ class Figures
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
