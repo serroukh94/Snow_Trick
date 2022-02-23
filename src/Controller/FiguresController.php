@@ -36,6 +36,7 @@ class FiguresController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $figure->setUser($this->getUser());
 
             $images = $form->get('images')->getData();
 
@@ -74,7 +75,7 @@ class FiguresController extends AbstractController
 
 
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/figures/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Figures $figure, EntityManagerInterface $entityManager): Response
     {
@@ -116,7 +117,7 @@ class FiguresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'figures_delete', methods: ['POST'])]
+    #[Route('/figures/{id}/delete', name: 'figures_delete', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Figures $figure, EntityManagerInterface $entityManager): Response
     {
@@ -132,7 +133,7 @@ class FiguresController extends AbstractController
     }
 
 
-    #[Route('/supprime/image/{id}', name: 'figures_delete_image', methods: ['DELETE'])]
+    #[Route('/figures/supprime/image/{id}', name: 'figures_delete_image', methods: ['DELETE'])]
     #[IsGranted('ROLE_USER')]
     public function deleteImage(Images $image, Request $request, EntityManagerInterface $entityManager){
 

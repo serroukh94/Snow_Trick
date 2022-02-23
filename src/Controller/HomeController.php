@@ -7,7 +7,6 @@ use App\Entity\Comments;
 use App\Entity\Figures;
 use App\Form\CommentType;
 use App\Repository\FiguresRepository;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +25,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/show', name: 'show', methods: ['GET', 'POST'])]
+    #[Route('/figures/{slug}', name: 'show', methods: ['GET', 'POST'])]
     public function show(Figures $figure, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comments();
@@ -50,4 +49,5 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 }

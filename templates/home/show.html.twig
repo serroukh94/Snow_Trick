@@ -34,7 +34,7 @@
     <div class="container">
         <p>
             <a href="{{ path('figures_index') }}">back to list</a>
-        <p> <a href="{{ path('edit', {'id': figure.id}) }}">edit</a>
+        <p> <a href="{{ path('edit', {'slug': figure.slug}) }}">edit</a>
 
             {{ include('figures/_delete_form.html.twig') }}
         </p>
@@ -43,7 +43,15 @@
 
 
     <div class="row tchat-section">
+        {% if app.user %}
         {% include "home/form.html.twig" %}
+
+        {% else %}
+            <h3>Vous ne pouvez pas commenter si vous n'êtes pas connecté. </h3>
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+
+        {% endif %}
+
         {% include "home/comments.html.twig" %}
     </div>
 

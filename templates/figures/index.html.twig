@@ -17,7 +17,6 @@
             <th>Title</th>
             <th>Slug</th>
             <th>Description</th>
-            <th>actions</th>
         </tr>
         </thead>
         <tbody>
@@ -37,8 +36,8 @@
                 <td>{{ figure.slug }}</td>
                 <td>{{ figure.description }}</td>
                 <td>
-                    <a href="{{ path('show', {'id': figure.id}) }}">show</a>
-                    <a href="{{ path('edit', {'id': figure.id}) }}">edit</a>
+                    <a href="{{ path('show', {'slug': figure.slug}) }}">show</a>
+                    <a href="{{ path('edit', {'slug': figure.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
