@@ -43,15 +43,16 @@ class Figures
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
+    #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Video::class)]
+    private $videos;
 
 
     public function __construct()
     {
-
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
-
+        $this->videos = new ArrayCollection();
     }
 
 
@@ -190,6 +191,36 @@ class Figures
     public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getFigure() === $this) {
+                $video->setFigure(null);
+            }
+        }
+
+        return $this;
     }
 
 }

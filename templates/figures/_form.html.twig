@@ -1,5 +1,3 @@
-
-
 {{ form_start(form) }}
     {{ form_widget(form) }}
 
@@ -7,16 +5,36 @@
   {% if app.request.attributes.get('_route') == 'edit' %}
       <h2>Images</h2>
       {% for image in figure.images %}
-              <div>
-                  <img src="{{ asset('/assets/uploads/' ~ image.name) }}" alt="Image" width="150">
-                  <a href="{{ path('figures_delete_image', {id : image.id}) }}" data-delete data-token="{{ csrf_token('delete ~ image.id') }}">Supprimer</a>
+          <div>
+              <img src="{{ asset('/assets/uploads/' ~ image.name) }}" alt="Image" width="150">
+              <a href="{{ path('figures_delete_image', {id : image.id}) }}"
+                 data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
 
-              </div>
+          </div>
       {% endfor %}
+
+      <h2>Videos</h2>
+    <div>
+        {% for video in figure.videos %}
+            <div class="card col-xl-4 col-md-6">
+                <div class="card-body">
+                    <iframe class="w-100" width="560" height="315" src="{{video.url}}" allow="autoplay" allowfullscreen></iframe>
+
+                    <a href="{{ path("deleteVid", {"id" : video.id}) }}" class="btn btn-danger" style="position: absolute;top:0;right: 0;"
+                       data-delete data-token="{{ csrf_token('delete' ~ video.id) }}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+
 
   {% endif %}
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 
 

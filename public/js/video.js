@@ -2,7 +2,6 @@ window.onload = () => {
     //Gestion des boutons "supprimer"
     let links = document.querySelectorAll("[data-delete]")
 
-
     // on boucle sur links
     for (link of links){
         // on ecoute le clic
@@ -11,7 +10,7 @@ window.onload = () => {
             e.preventDefault()
 
             //on demande confirmation
-            if (confirm("Voulez-vous supprimer cette image ?")){
+            if (confirm("Voulez-vous supprimer cette video ?")){
                 // on envoie une requette Ajax vers le href du lien avec la methode DELETE
                 fetch(this.getAttribute("href"), {
                     method: "DELETE",
