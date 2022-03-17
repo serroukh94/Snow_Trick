@@ -14,6 +14,20 @@
                 <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" class="img-fluid">
             </div>
         {% endfor %}
+
+    </div>
+    <div class="row">
+        {% for video in figure.videos %}
+            <div class="card col-xl-4 col-md-6">
+                <div class="card-body">
+                    <iframe class="w-100" width="560" height="315" src="{{video.url}}" allow="autoplay" allowfullscreen></iframe>
+
+                    <a href="{{ path("deleteVid", {"id" : video.id}) }}" class="btn btn-danger" style="position: absolute;top:0;right: 0;">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
 

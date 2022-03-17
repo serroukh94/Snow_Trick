@@ -58,6 +58,8 @@ class FiguresType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
+
+
         ;
     }
 

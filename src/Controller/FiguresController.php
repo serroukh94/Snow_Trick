@@ -74,7 +74,7 @@ class FiguresController extends AbstractController
 
 
             $figure->setCreatedAt(new \DateTimeImmutable())
-                    ->setUser($this->getUser());
+                ->setUser($this->getUser());
 
             //Je persist
             $entityManager->persist($figure);
