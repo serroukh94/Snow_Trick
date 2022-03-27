@@ -5,10 +5,11 @@
     {% for comment in comments %}
         <div class="card mb-3">
             <div class="row g-0">
-
+                <div class="col-2"> {{dicebear(comment.user)}}
+                </div>
                 <div class="col-10">
                     <div class="card-body">
-                        <h5 class="card-title">Par {{ comment.user.lastname }} {{ comment.user.firstname }}</h5>
+                        <h5 class="card-title">Par {{comment.user.fullName}}</h5>
                         <p class="card-text">{{comment.content}}</p>
                         <p class="card-text">
                             <small class="text-muted">Le {{ comment.createdAt|date('d/m/Y à H:i') }}</small>

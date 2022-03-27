@@ -59,6 +59,11 @@ class User implements UserInterface
         $this->figures = new ArrayCollection();
     }
 
+    public function getFullName(): string
+    {
+        return (string) $this->firstname . ' ' . $this->lastname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
