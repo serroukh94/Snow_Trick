@@ -1,29 +1,38 @@
 
 
 
-<section>
-    {% for com in figure.comments %}
-        <div class="container mb-2">
-            <div class="row justify-content-center">
-                <div class="card card-row shadow-light-lg">
-                    <div class="row gx-0">
-                        <!-- Body -->
-                        <div class="card-body">
-                            <blockquote class="mb-0 text-center">
+<div class="d-flex flex-column align-items-center my-4">
+    {% for comment in comments %}
+        <div class="card mb-3">
+            <div class="row g-0">
 
-                                <p>
-                                    {{ com.content }}
-                                </p>
-
-                                <footer class="blockquote-footer">
-                                    <span class="h6 text-uppercase">Par {{ com.user.lastname }} {{ com.user.firstname }} le {{ com.createdAt | date('d/m/y')}} à {{ figure.createdAt |date('H:i') }} </span>
-                                </footer>
-                            </blockquote>
-                        </div>
+                <div class="col-10">
+                    <div class="card-body">
+                        <h5 class="card-title">Par {{ comment.user.lastname }} {{ comment.user.firstname }}</h5>
+                        <p class="card-text">{{comment.content}}</p>
+                        <p class="card-text">
+                            <small class="text-muted">Le {{ comment.createdAt|date('d/m/Y à H:i') }}</small>
+                        </p>
                     </div>
                 </div>
-
             </div>
         </div>
+    {% else %}
+        <p class="text-dark">Aucune commentaires n'a encore était ajouté.</p>
     {% endfor %}
-</section>
+
+
+    {% if previous >= 0 %}
+
+        <a href="{{ path('show', { slug: figure.slug, offset: previous }) }}">Avant</a>
+
+    {% endif %}
+
+    {% if next < comments|length %}
+
+        <a href="{{ path('show', { slug: figure.slug, offset: next }) }}">Aprés</a>
+
+    {% endif %}
+
+
+</div>

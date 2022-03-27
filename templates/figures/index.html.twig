@@ -28,7 +28,7 @@
                 <td>
                     {% for image in figure.images %}
                         <div>
-                            <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="150">
+                            <img src="{{ asset('/assets/uploads/'~ image.name) }}" alt="Image" width="150">
                         </div>
                     {% endfor %}
                 </td>

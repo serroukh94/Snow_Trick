@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +20,7 @@ class Images
     #[ORM\ManyToOne(targetEntity: Figures::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private $figures;
+
 
     public function getId(): ?int
     {
@@ -48,4 +50,5 @@ class Images
 
         return $this;
     }
+
 }

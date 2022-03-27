@@ -30,7 +30,7 @@ class Figures
     #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Comments::class)]
     private $comments;
 
-    #[ORM\OneToMany(mappedBy: 'figures', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'figures', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private $images;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'figures')]
@@ -43,7 +43,7 @@ class Figures
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
-    #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Video::class)]
+    #[ORM\OneToMany(mappedBy: 'figure', targetEntity: Video::class, cascade: ['persist', 'remove'])]
     private $videos;
 
 

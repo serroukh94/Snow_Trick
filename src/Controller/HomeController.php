@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use App\Repository\FiguresRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/figures/{slug}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(Figures $figure, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepo): Response
+    public function show(Figures $figure, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepo, $page = 1): Response
     {
 
 
@@ -44,17 +45,21 @@ class HomeController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-
-
             $this->addFlash('success', "Votre commentaire a été ajouté à la liste de discussion de cette figure.");
+
         }
+
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $commentRepo->getCommentPaginator($figure, $offset);
 
         return $this->render('home/show.html.twig', [
             'figure' => $figure,
-            'form' => $form->createView(),
-            //Je récupère tous les commentaires qui possèdent l'id du tricks affiché par ordre descendant
-            'comments' => $commentRepo->findBy(array('id' => $figure->getId()), array('created_at' => 'DESC'))
+            'comments' => $paginator,
+            'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + CommentRepository::PAGINATOR_PER_PAGE),
+            'form' => $form->createView()
         ]);
     }
+
 
 }
