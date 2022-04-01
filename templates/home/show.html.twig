@@ -10,9 +10,10 @@
         {% endfor %}
 
         {% for image in figure.images %}
-            <div>
+            {% if loop.first %}
+
                 <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" class="img-fluid">
-            </div>
+            {% endif %}
         {% endfor %}
 
     </div>
@@ -33,7 +34,7 @@
 
     <hr>
 
-    <p>{{ figure.category }}</p>
+    <span class="badge bg-info">Créer le {{ figure.createdAt|date('d/m/Y à H:i') }}</span>
 
     <div class="container">
 
@@ -68,11 +69,10 @@
 
         {% endif %}
 
-        {% include "home/comments.html.twig" %}
+
     </div>
 
-
-
+    {% include "home/comments.html.twig" %}
 
 
 {% endblock %}

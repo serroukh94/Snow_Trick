@@ -4,6 +4,7 @@
 
 {% block carousel %} {% endblock %}
 
+
 {% block content %}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">{{ message }}</div>
@@ -19,15 +20,25 @@
             <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                 <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem">
                     {% for image in figure.images %}
-                    <div class="card-header text-center">
-                        <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="220">
+                        <div class="card-header text-center">
+                            {% if loop.first %}
+                            <img src="{{ asset('/assets/uploads/'~image.name) }}" alt="Image" width="220">
+                            {% endif %}
 
-                    </div>
+                        </div>
                     {% endfor %}
                     <div class="card-body">
-                        <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ figure.title }}</h3>
+                        <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">
+                            <a href="{{ path('show', {'slug': figure.slug}) }}">{{ figure.title }}</a>
+                        </h3>
+                        {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('edit', {'slug': figure.slug}) }}"><img src="{{ asset('assets/img/pencil.png') }}" class="mx-2" alt="stylo" height="20px"></a>
+                        {% endif %}
+                        {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('figures_delete', {'id': figure.id}) }}"><img src="{{ asset('assets/img/trash.png') }}" class="mx-2" alt="poubelle" height="20px"></a>
+                        {% endif %}
                         <p class="card-text">
-                        <h4 class="text-center">{{ figure.description }}</h4>
+
                         </p>
                     </div>
                 </div>
