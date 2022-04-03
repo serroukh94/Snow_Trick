@@ -11,9 +11,11 @@
     {% endfor %}
 
 
-    <h2>Découvrer nos figures</h2>
-    <hr>
 
+    <h2>Découvrer nos figures</h2>
+
+
+    <hr>
 
     <div class="row">
         {% for figure in figures %}
@@ -41,10 +43,17 @@
 
                         </p>
                     </div>
+
                 </div>
             </div>
+
         {% endfor %}
+
     </div>
 
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('js/loadmore.js') }}"></script>
 {% endblock %}
