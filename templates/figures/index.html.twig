@@ -14,8 +14,9 @@
         <tr>
             <th>Id</th>
             <th>Image</th>
-            <th>Video</th>
+
             <th>Title</th>
+            <th>slug</th>
 
             <th>Description</th>
         </tr>
@@ -33,22 +34,11 @@
                     {% endfor %}
                 </td>
 
-                <td>
-                    {% for video in figure.videos %}
-                        <div class="card col-xl-4 col-md-6">
-                            <div class="card-body">
-                                <iframe class="w-100" width="560" height="115" src="{{video.url}}" allow="autoplay" allowfullscreen></iframe>
 
-                                <a href="{{ path("deleteVid", {"id" : video.id}) }}" class="btn btn-danger" style="position: absolute;top:0;right: 0;">
-                                        <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </td>
 
 
                 <td>{{ figure.title }}</td>
+                <td>{{ figure.slug }}</td>
 
                 <td>{{ figure.description }}</td>
                 <td>
